@@ -1,0 +1,43 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  <div class="NavBar-Container">
+    <nav class="NavBar grid">
+      <li><a href="{% url 'shop' shop_id %}">Volver a la tienda</a></li>
+    </nav>
+  </div>
+
+  <div class="Contenido">
+    <h1>Historial de Compras</h1> 
+  
+    <form class="Form" method="POST">
+      {% csrf_token %}
+      {{form.as_p}}
+      <button>Crear nueva compra</button>
+    </form>
+  
+    <div class="Contenedor-Tabla Tabla-larga">
+      <table>
+        <tr> 
+          <th>Product</th>
+          <th>Amount</th>
+          <th>Unit Price</th>
+          <th>Costo Total</th>
+          <th>Purchase Date</th>
+          <th>Provider</th>
+        </tr>
+        
+        {% for historial in historiales %}
+        <tr>
+          <td>{{historial.product_provider}}</td>
+          <td>{{historial.amount}}</td>
+          <td>{{historial.unit_price}}</td>
+          <td>{{historial.total_cost}}</td>
+          <td>{{historial.purchase_date}}</td>
+          <td>{{historial.product_provider.provider}}</td>
+        </tr>
+        {% endfor %}
+      </table>
+    </div>
+  </div>
+{% endblock content %}

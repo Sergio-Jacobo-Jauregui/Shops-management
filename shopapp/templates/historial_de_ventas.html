@@ -1,0 +1,58 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  <div class="NavBar-Container">
+    <nav class="NavBar grid">
+      <li><a href="{% url 'shop' shop_id %}">&lt;--- Volver a la tienda</a></li>
+    </nav>
+  </div>
+
+  <div class="Contenido">
+    <h1>Historial de Ventas</h1> 
+    
+    <form class="Form" method="POST">
+      {% csrf_token %}
+      <p>
+        <label for="product_provider">Product provider: </label>
+        <select id="product_provider" style="width: 200px;"  name="product_provider">
+          {% for prod in productos_disponibles %}
+            <option value="{{prod.product_provider.id}}">{{prod.product_provider}}</option>
+          {% endfor %}
+        </select>
+      </p>
+      
+      <p>
+        <label for="amount">Amount: </label>
+        <input required type="number" name="amount" id="amount">
+      </p>
+  
+      <p>
+        <label for="unit_price">Unit price: </label>
+        <input required type="number" name="unit_price" id="unit_price">
+      </p>
+      <button>Crear nueva venta</button>
+    </form>
+
+    <div class="Contenedor-Tabla">
+      <table>
+        <tr> 
+          <th>Product</th>
+          <th>Amount</th>
+          <th>Unit Price</th>
+          <th>Total Price</th>
+          <th>Sale Date</th>
+        </tr>
+        
+        {% for historial in historiales %}
+          <tr>
+            <td>{{historial.product_provider}}</td>
+            <td>{{historial.amount}}</td>
+            <td>{{historial.unit_price}}</td>
+            <td>{{historial.total_price}}</td>
+            <td>{{historial.sale_date}}</td>
+          </tr>
+        {% endfor %}
+      </table>
+    </div>
+  </div>
+{% endblock content %}

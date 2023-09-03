@@ -1,0 +1,2 @@
+from .historial_compras import HistorialDeCompraForm
+from .historial_ventas import HistorialDeVentaForm

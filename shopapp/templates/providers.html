@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  <h1>Providers</h1>
+
+  <ol>
+    
+    {% for provider in providers %}
+      <li>
+        <h3>{{provider}}</h3>
+        <ul>
+          {% for attr in provider.product_set.all %}
+            <li>{{attr}}</li>
+          {% endfor %}
+        </ul>
+      </li>
+    {% endfor %}
+      
+  </ol>
+{% endblock content %}

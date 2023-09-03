@@ -1,0 +1,206 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  <div class="NavBar-Container">
+    <nav class="NavBar grid">
+      <li><a href="#Productos-Stock">Productos en Stock</a></li>
+      <li><a href="#Productos-no-Stock">Productos agotados</a></li>
+      <li><a href="#Productos-por-llegar">Pedidos por llegar</a></li>
+      <li><a href="#Productos-historial-ventas">Historial de Ventas</a></li>
+      <li><a href="#Productos-historial-compras">Historial de Compras</a></li>
+      <li><a href="#Proveedores">Proveedores</a></li>
+    </nav>
+  </div>
+  <div class="Contenido">
+  
+    <h1 class="Titulo-Shop">{{shop.name}}</h1>
+  
+    <div class="Cuerpo">
+      <div class="Productos" id="Productos-Stock">
+        <details class="Details">
+          <summary class="Productos-Titulo">Productos en la tienda</summary>
+          {% if shopProducts|length == 0 %}
+            <div>No Productos para mostrar</div>
+          {% else %}
+            <div class="Contenedor-Tabla">
+              <table>
+                <tr>
+                  <th>Nombre</th>
+                  <th>Cantidad</th>
+                  <th>Precio de compra</th>
+                  <th>Precio de venta</th>
+                  <th>Fecha de vencimiento</th>
+                  <th>Fecha de llegada</th>
+                </tr>
+        
+                {% for shopProduct in shopProducts %}
+                  <tr>
+                    <td>{{shopProduct.product_provider}}</td>
+                    <td>{{shopProduct.amount}}</td>
+                    <td>{{shopProduct.purchase_price}}</td>
+                    <td>{{shopProduct.sale_price}}</td>
+                    <td>{{shopProduct.due_date}}</td>
+                    <td>{{shopProduct.arrival_date}}</td>
+                  </tr>
+                {% endfor %}
+              </table>
+            </div>
+          {% endif %}
+        </details>
+      </div>
+  
+      <div class="Productos" id="Productos-no-Stock">
+        <details class="Details">
+          <summary class="Productos-Titulo">Productos agotados</summary>
+          {% if products_out_stock|length == 0 %}
+            <div>No Productos para mostrar</div>
+          {% else %}
+            <div class="Contenedor-Tabla">
+              <table>
+                <tr>
+                  <th>Nombre</th>
+                  <th>Cantidad</th>
+                  <th>Precio de compra</th>
+                  <th>Precio de venta</th>
+                  <th>Fecha de vencimiento</th>
+                  <th>Fecha de llegada</th>
+                </tr>
+                {% for product_out_stock in products_out_stock %}
+                  <tr>
+                    <td>{{product_out_stock.product_provider}}</td>
+                    <td>{{product_out_stock.amount}}</td>
+                    <td>{{product_out_stock.purchase_price}}</td>
+                    <td>{{product_out_stock.sale_price}}</td>
+                    <td>{{product_out_stock.due_date}}</td>
+                    <td>{{product_out_stock.arrival_date}}</td>
+                  </tr>
+                {% endfor %}
+              </table>
+            </div>
+          {% endif %}
+        </details>
+
+      </div>
+    
+      <div class="Productos" id="Productos-por-llegar">
+        <details class="Details">
+          <summary class="Productos-Titulo">Productos en camino</summary>
+          {% if productos_por_llegar|length == 0 %}
+          <div>No Productos para mostrar</div>
+          {% else %}
+            <div class="Contenedor-Tabla">
+              <table>
+                <tr>
+                  <th>Nombre</th>
+                  <th>Cantidad</th>
+                  <th>Precio de compra</th>
+                  <th>Precio de venta</th>
+                  <th>Fecha de vencimiento</th>
+                  <th>Fecha de llegada</th>
+                </tr>
+        
+                {% for producto_por_llegar in productos_por_llegar %}
+                  <tr>
+                      <td>{{producto_por_llegar.product_provider}}</td>
+                      <td>{{producto_por_llegar.amount}}</td>
+                      <td>{{producto_por_llegar.purchase_price}}</td>
+                      <td>{{producto_por_llegar.sale_price}}</td>
+                      <td>{{producto_por_llegar.due_date}}</td>
+                      <td>{{producto_por_llegar.arrival_date}}</td>
+                  </tr>
+                {% endfor %}
+        
+              </table>
+            </div>
+          {% endif %}
+        </details>
+      </div>
+      
+      <div class="Historial" id="Productos-historial-ventas">
+        <details class="Details">
+          <summary class="Productos-Titulo">Historial de Ventas</summary>
+          {% if historialDeVentas|length == 0 %}
+            <div>Aun no hay ventas :c</div>
+          {% else %}
+            <div class="Contenedor-Tabla">
+              <table>
+                <tr> 
+                  <th>Product</th>
+                  <th>Amount</th>
+                  <th>Unit Price</th>
+                  <th>Total Price</th>
+                  <th>Sale Date</th>
+                </tr>
+                
+                {% for historialDeVenta in historialDeVentas %}
+                  <tr>
+                    <td>{{historialDeVenta.product_provider}}</td>
+                    <td>{{historialDeVenta.amount}}</td>
+                    <td>{{historialDeVenta.unit_price}}</td>
+                    <td>{{historialDeVenta.total_price}}</td>
+                    <td>{{historialDeVenta.sale_date}}</td>
+                  </tr>
+                  {% endfor %}
+                </table>
+              </div>
+          {% endif %}
+        </details>
+            
+        <div class="Boton-Falso" >
+          <a href="{% url 'shop_historial_ventas' shop.id %}"> <strong>Hacer una venta</strong> </a>
+        </div>
+      </div>
+      
+      <div class="Historial" id="Productos-historial-compras">
+        <details class="Details">
+          <summary class="Productos-Titulo">Historial de Compras</summary>
+          {% if historialDeCompras|length == 0 %}
+            <div>Aun no hay compras :c</div>
+          {% else %}
+            <div class="Contenedor-Tabla">
+              <table>
+                <tr> 
+                  <th>Product</th>
+                  <th>Amount</th>
+                  <th>Unit Price</th>
+                  <th>Costo Total</th>
+                  <th>Purchase Date</th>
+                  <th>Provider</th>
+                </tr>
+                
+                {% for historialDeCompra in historialDeCompras %}
+                <tr>
+                  <td>{{historialDeCompra.product_provider}}</td>
+                  <td>{{historialDeCompra.amount}}</td>
+                  <td>{{historialDeCompra.unit_price}}</td>
+                  <td>{{historialDeCompra.total_cost}}</td>
+                  <td>{{historialDeCompra.purchase_date}}</td>
+                  <td>{{historialDeCompra.product_provider.provider}}</td>
+                </tr>
+                {% endfor %}
+              </table>
+            </div>
+          {% endif %}
+        </details>
+
+        <div class="Boton-Falso" >
+          <a href="{% url 'shop_historial_compras' shop.id %}"> <strong>Hacer Pedidos</strong> </a>
+        </div>
+      </div>
+      
+      <div class="Proveedores" id="Proveedores">
+        <h3>Proveedores</h3>
+        <ul>
+          {% for provider in shopProviders %}
+            <li>
+              {{provider}}  
+            </li>
+          {% endfor %}
+        </ul>
+      </div>
+    </div>
+  </div>
+{% endblock content %}
+  
+  
+  
