@@ -5,14 +5,14 @@
 
 .Tiendas {
   margin: 20px 40px;
-  justify-content: space-between;
+  justify-content: space-evenly;
   height: auto;
 }
 
 .Card {
   margin: 0px 10px;
   flex-direction: column;
-  flex-basis: calc(50% - 30px);
+  flex-basis: calc(33% - 30px);
   align-items: center;
   height: 200px;
   background-color: rgb(65, 151, 122);

@@ -85,8 +85,8 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
         'NAME': 'django_shop',
-        'USER': config(DB_USER),
-        'PASSWORD': config(DB_PASSWORD),
+        'USER': config('DB_USER'),
+        'PASSWORD': config('DB_PASSWORD'),
         'HOST': 'localhost',
         'PORT': '5432',
     }
@@ -130,7 +130,7 @@ USE_TZ = True
 STATIC_URL = '/static/'
 
 STATICFILES_DIRS = [
-    BASE_DIR / "shoapp/static",
+    BASE_DIR / "shopapp/static",
 ]
 
 # Default primary key field type
