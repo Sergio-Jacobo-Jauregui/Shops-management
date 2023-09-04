@@ -1,8 +1,12 @@
 from django.shortcuts import render, redirect
-from .models import ShopProvider, Shop, ShopProduct, HistorialDeVenta, HistorialDeCompra, Provider
+from .models import ShopProvider, Shop, Product, ShopProduct, HistorialDeVenta, HistorialDeCompra, Provider
 from django.db import connection
 from .forms import HistorialDeCompraForm, HistorialDeVentaForm
 from decimal import Decimal
+
+from rest_framework import viewsets, permissions
+from .serializers import ProductSerializer, ShopProductSerializer
+from django.http import HttpResponse, JsonResponse
 
 # Create your views here.
 def index(request):
@@ -84,6 +88,22 @@ def providers(request):
     'providers': providers,
   })
 
+# DRF
+class ProductViewSet(viewsets.ModelViewSet):
+  queryset = Product.objects.all()
+  serializer_class = ProductSerializer
+  permission_classes = [permissions.IsAuthenticated]
 
+class ShopProductViewSet(viewsets.ModelViewSet):
+  queryset = ShopProduct.objects.all()
+  serializer_class = ShopProductSerializer
+  permission_classes = [permissions.IsAuthenticated]
+
+# JSON
+def json_products(request):
+  if request.method == 'GET':
+      products = Product.objects.all()
+      serializer = ProductSerializer(products, many=True)
+      return JsonResponse(serializer.data, safe=False)
 
 
