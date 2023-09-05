@@ -100,6 +100,16 @@ class ShopProductViewSet(viewsets.ModelViewSet):
   permission_classes = [permissions.IsAuthenticated]
 
 # JSON
+def json_alone(request):
+  if request.method == 'GET':
+      data = {
+        "name": "Gato",
+        "age": 3,
+        "mischievous": True,
+      }
+      
+      return JsonResponse(data)
+
 def json_products(request):
   if request.method == 'GET':
       products = Product.objects.all()

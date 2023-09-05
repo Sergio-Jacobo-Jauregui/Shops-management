@@ -1,0 +1,16 @@
+FROM postgres:latest
+
+ENV POSTGRES_DB=django_shop
+ENV POSTGRES_USER=cuchi
+ENV POSTGRES_PASSWORD=qq
+
+RUN mkdir -p /home/db
+RUN cd /home/db
+WORKDIR /home/db
+
+COPY sql/ /home/db/
+COPY sql/all.sql /docker-entrypoint-initdb.d/
+
+EXPOSE 5432
+
+# CMD [ "psql", "-h", "localhost", "-d", "django_shop", "-U", "cuchi", "-f", "all.sql" ]

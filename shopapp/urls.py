@@ -19,4 +19,5 @@ urlpatterns = [
   path('api-auth/', include('rest_framework.urls', namespace='rest_framework')),
   # JSON
   path('json_products/', views.json_products, name='json_products'),
+  path('json_alone/', views.json_alone, name='json_alone'),
 ]

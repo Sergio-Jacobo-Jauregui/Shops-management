@@ -1,0 +1,24 @@
+version: '3'
+
+services:
+  web:
+    container_name: shop
+    build:
+      context: ./
+      dockerfile: Dockerfile
+    ports:
+      - "8000:8000" 
+    depends_on:
+      - db
+
+  db:
+    # image: postgres:latest
+    container_name: pos_shop
+    build:
+      context: ./
+      dockerfile: Dockerfile-postgres
+    restart: always
+    environment:
+      POSTGRES_DB: django_shop
+      POSTGRES_USER: cuchi
+      POSTGRES_PASSWORD: qq
