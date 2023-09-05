@@ -13,4 +13,4 @@ COPY sql/all.sql /docker-entrypoint-initdb.d/
 
 EXPOSE 5432
 
-# CMD [ "psql", "-h", "localhost", "-d", "django_shop", "-U", "cuchi", "-f", "all.sql" ]
+
