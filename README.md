@@ -1,5 +1,6 @@
 # Shops-management
-A simple app for store management, backend personal project
+This is a backend personal project.
+How many times is it cumbersome or a headache to manage a store?, well, this project helps you make an inventory of in-stock or out-of-stock products and handle product order
 
 ## How to start
 First we need to create a DB called 'django_shop' to PostgreSQL and use:
