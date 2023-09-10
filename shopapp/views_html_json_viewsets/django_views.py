@@ -1,6 +1,5 @@
 from django.shortcuts import render, redirect
 from shopapp.models import ShopProvider, Shop, HistorialDeVenta, HistorialDeCompra, Provider
-from django.db import connection
 from shopapp.forms import HistorialDeCompraForm, HistorialDeVentaForm
 from decimal import Decimal
 
@@ -20,10 +19,6 @@ def shop(request, id):
   historialDeVenta = HistorialDeVenta.objects.filter(shop_id=id)
   historialDeCompra = HistorialDeCompra.objects.filter(shop_id=id)
   shopProviders = ShopProvider.objects.filter(shop_id=id)
-
-  queries = connection.queries
-  for query in queries:
-      print(query['sql'])
 
   return render(request, 'shop.html', {
     'shop': shop,

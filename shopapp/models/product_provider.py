@@ -8,3 +8,12 @@ class ProductProvider(models.Model):
 
   def __str__(self):
     return self.product.name
+  
+  def clean(self):
+    existing_instance = ProductProvider.objects.filter(
+      product_id=self.product_id,
+      provider_id=self.provider_id
+    )
+
+    result = False if existing_instance else True
+    return result
