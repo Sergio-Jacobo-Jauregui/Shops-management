@@ -37,6 +37,12 @@ urlpatterns = [
   
   path('shop_serial/', views_serialized.shops_serialized, name='shop_serial'),
   path('shop_serial/<int:id>', views_serialized.get_shop_serialized, name='shop_serial'),
+  
+  path('historial_venta_serial/', views_serialized.historial_de_ventas_serialized, name='historial_de_ventas_serialized'),
+  path('historial_venta_serial/<int:id>', views_serialized.get_historial_de_venta_serialized, name='get_historial_de_venta_serialized'),
+  
+  path('historial_compra_serial/', views_serialized.historial_de_compras_serialized, name='historial_de_compras_serialized'),
+  path('historial_compra_serial/<int:id>', views_serialized.get_historial_de_compra_serialized, name='get_historial_de_compra_serialized'),
   # JSON RESPONSES
   path('json_alone/', view_not_serialized.json_alone, name='json_alone'),
   path('ok/', view_not_serialized.ok, name='ok'),
