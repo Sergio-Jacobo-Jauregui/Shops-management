@@ -11,7 +11,18 @@ https://docs.djangoproject.com/en/4.2/ref/settings/
 """
 
 from pathlib import Path
-from decouple import config
+from decouple import Config, RepositoryEnv
+import os
+from os.path import join
+
+
+# Build paths inside the project like this: BASE_DIR / 'subdir'.
+BASE_DIR = Path(__file__).resolve().parent.parent
+
+if os.environ.get("DOCKER_ENVIRONMENT"):
+    config = Config(RepositoryEnv(join(BASE_DIR, 'envs_docker.env')))
+else:
+    config = Config(RepositoryEnv(join(BASE_DIR, 'envs_local.env')))
 
 LOGGING = {
     'version': 1,
@@ -31,8 +42,6 @@ LOGGING = {
     },
 }
 
-# Build paths inside the project like this: BASE_DIR / 'subdir'.
-BASE_DIR = Path(__file__).resolve().parent.parent
 
 
 # Quick-start development settings - unsuitable for production
@@ -42,9 +51,10 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-@)%tt5_usckkr4#ex)+nki+$_3q5!+f06s9$0dwu9$tiyo=pr3'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+# DEBUG = config('DEBUG', cast=bool)
+DEBUG = False
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = [config('ALLOWED_HOST', default='')]
 
 
 # Application definition
@@ -58,6 +68,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'rest_framework',
     'shopapp',
+    'corsheaders',
 ]
 
 MIDDLEWARE = [
@@ -68,6 +79,18 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
+]
+
+CORS_ALLOWED_ORIGINS = [
+    "http://localhost:3000",
+]
+
+CORS_ALLOW_METHODS = [
+    "GET",
+    "POST",
+    "PUT",
+    "DELETE",
 ]
 
 ROOT_URLCONF = 'shops.urls'
@@ -97,10 +120,10 @@ WSGI_APPLICATION = 'shops.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': config('DB_NAME', default='django_shop'),
-        'USER': config('DB_USER', default='cuchi'),
-        'PASSWORD': config('DB_PASSWORD', default='qq'),
-        'HOST': config('DB_HOST', default='db'),
+        'NAME': config('DB_NAME', default=''),
+        'USER': config('DB_USER', default=''),
+        'PASSWORD': config('DB_PASSWORD', default=''),
+        'HOST': config('DB_HOST', default=''),
         'PORT': '5432',
     }
 }

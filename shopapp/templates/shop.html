@@ -166,6 +166,8 @@
                   <th>Costo Total</th>
                   <th>Purchase Date</th>
                   <th>Provider</th>
+                  <th>Unidades por pack</th>
+                  <th>Package</th>
                 </tr>
                 
                 {% for historialDeCompra in historialDeCompras %}
@@ -176,6 +178,8 @@
                   <td>{{historialDeCompra.total_cost}}</td>
                   <td>{{historialDeCompra.purchase_date}}</td>
                   <td>{{historialDeCompra.product_provider.provider}}</td>
+                  <td>{{historialDeCompra.num_units_from_pack}}</td>
+                  <td>{{historialDeCompra.package}}</td>
                 </tr>
                 {% endfor %}
               </table>

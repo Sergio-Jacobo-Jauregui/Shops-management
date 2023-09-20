@@ -1,4 +1,5 @@
-.env
+envs_docker.env
+envs_local.env
 
 env/
 

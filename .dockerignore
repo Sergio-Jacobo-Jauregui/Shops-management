@@ -1,7 +1,7 @@
 env/
 Dockerfile
 docker-compose.yml
-.env
+envs_local.env
 .dockerignore
 manifiest-service.yml
 manifiest.yml
