@@ -1,7 +1,6 @@
 env/
-Dockerfile
-docker-compose.yml
 envs_local.env
-.dockerignore
-manifiest-service.yml
-manifiest.yml
+docker/Dockerfile
+docker/Dockerfile-postgres
+docker/docker-compose.yml
+docker/.dockerignore

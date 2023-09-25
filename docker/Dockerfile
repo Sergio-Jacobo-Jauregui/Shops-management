@@ -10,9 +10,9 @@ RUN mkdir -p /home/app
 RUN cd /home/app
 WORKDIR /home/app
 
-COPY . /home/app
+COPY ../ /home/app
 
-RUN pip install -r requirements.txt
+RUN pip install -r docker/requirements.txt
 
 EXPOSE 8000
 

@@ -4,8 +4,8 @@ services:
   web:
     container_name: shop
     build:
-      context: ./
-      dockerfile: Dockerfile
+      context: ../
+      dockerfile: docker/Dockerfile
     ports:
       - "8000:8000" 
     depends_on:
@@ -14,9 +14,9 @@ services:
   db:
     container_name: pos_shop
     build:
-      context: ./
-      dockerfile: Dockerfile-postgres
+      context: ../
+      dockerfile: docker/Dockerfile-postgres
     environment:
       POSTGRES_DB: django_shop
-      POSTGRES_USER: cuchi
-      POSTGRES_PASSWORD: qq
+      POSTGRES_USER: user1
+      POSTGRES_PASSWORD: password
