@@ -14,9 +14,9 @@ def index(request):
 def shop(request, id):
   shop = Shop.objects.get(id=id)
   shop_dic = model_to_dict(shop, fields=['name'])
-  shopProducts = list(shop.productos_en_stock_react())
-  products_out_stock = list(shop.productos_agotados_react())
-  productos_por_llegar = list(shop.productos_en_camino_react())
+  shopProducts = list(shop.products_in_stock_react())
+  products_out_stock = list(shop.products_out_stock_react())
+  productos_por_llegar = list(shop.upcoming_products_react())
   historialDeVenta = list(HistorialDeVenta.objects.filter(shop_id=id).select_related('product_provider__product').values('id','product_provider__product__name', 'amount', 'unit_price', 'total_price', 'sale_date'))
   historialDeCompra = list(HistorialDeCompra.objects.filter(shop_id=id).select_related('product_provider__product').values('id','product_provider__product__name', 'amount', 'unit_price', 'total_cost', 'purchase_date', 'product_provider', 'num_units_from_pack', 'package'))
   shopProviders = list(Provider.objects.filter(shopprovider__shop_id=1).values('id', 'name'))
@@ -37,7 +37,7 @@ def shop_historial_ventas(request, id):
   if request.method == 'GET':
     historiales = HistorialDeVenta.objects.filter(shop_id=id).order_by('-sale_date')
     shop = Shop.objects.get(id=id)
-    productos_disponibles = shop.productos_en_stock()
+    productos_disponibles = shop.products_in_stock()
 
     return render(request, 'historial_de_ventas.html', {
       'historiales': historiales,

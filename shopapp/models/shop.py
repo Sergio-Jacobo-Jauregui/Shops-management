@@ -13,20 +13,29 @@ class Shop(models.Model):
   def __str__(self):
     return self.name  
   
-  def productos_en_stock(self):
+  def products_in_stock(self):
     return self.shopproduct_set.filter(amount__gt=0, arrival_date__lt=self.today())
   
-  def productos_agotados(self):
+  def products_out_stock(self):
     return self.shopproduct_set.filter(amount__exact=0)
   
-  def productos_en_camino(self):
+  def upcoming_products(self):
     return self.shopproduct_set.filter(arrival_date__gt=self.today()) 
   
-  def productos_en_stock_react(self):
-    return self.shopproduct_set.filter(amount__gt=0, arrival_date__lt=self.today()).select_related('product_provider__product').values('id','product_provider__product__name', 'amount', 'purchase_price', 'sale_price', 'due_date', 'arrival_date')
+  def products_in_stock_react(self):
+    return self.products_in_stock().select_related('product_provider__product').values(
+      'id','product_provider__product__name', 'amount', 'purchase_price', 'sale_price',
+      'due_date', 'arrival_date'
+    )
   
-  def productos_agotados_react(self):
-    return self.shopproduct_set.filter(amount__exact=0).select_related('product_provider__product').values('id','product_provider__product__name', 'amount', 'purchase_price', 'sale_price', 'due_date', 'arrival_date')
+  def products_out_stock_react(self):
+    return self.products_out_stock().select_related('product_provider__product').values(
+      'id','product_provider__product__name', 'amount', 'purchase_price', 'sale_price',
+      'due_date', 'arrival_date'
+    )
   
-  def productos_en_camino_react(self):
-    return self.shopproduct_set.filter(arrival_date__gt=self.today()).select_related('product_provider__product').values('id','product_provider__product__name', 'amount', 'purchase_price', 'sale_price', 'due_date', 'arrival_date') 
+  def upcoming_products_react(self):
+    return self.upcoming_products().select_related('product_provider__product').values(
+      'id','product_provider__product__name', 'amount', 'purchase_price', 'sale_price',
+      'due_date', 'arrival_date'
+    )

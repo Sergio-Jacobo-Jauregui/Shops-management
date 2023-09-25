@@ -19,11 +19,13 @@ from os.path import join
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
+# Set environmet
 if os.environ.get("DOCKER_ENVIRONMENT"):
     config = Config(RepositoryEnv(join(BASE_DIR, 'envs_docker.env')))
 else:
     config = Config(RepositoryEnv(join(BASE_DIR, 'envs_local.env')))
 
+# Logs
 LOGGING = {
     'version': 1,
     'disable_existing_loggers': False,
@@ -41,8 +43,6 @@ LOGGING = {
         },
     },
 }
-
-
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/4.2/howto/deployment/checklist/

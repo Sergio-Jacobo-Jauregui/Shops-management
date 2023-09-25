@@ -13,18 +13,18 @@ def index(request):
 
 def shop(request, id):
   shop = Shop.objects.get(id=id)
-  shopProducts = shop.productos_en_stock()
-  products_out_stock = shop.productos_agotados()
-  productos_por_llegar = shop.productos_en_camino()
+  products_in_stock = shop.products_in_stock()
+  products_out_stock = shop.products_out_stock()
+  upcoming_products = shop.upcoming_products()
   historialDeVenta = HistorialDeVenta.objects.filter(shop_id=id)
   historialDeCompra = HistorialDeCompra.objects.filter(shop_id=id)
   shopProviders = ShopProvider.objects.select_related('provider').filter(shop_id=id)
 
   return render(request, 'shop.html', {
     'shop': shop,
-    'shopProducts': shopProducts,
+    'products_in_stock': products_in_stock,
     'products_out_stock': products_out_stock,
-    'productos_por_llegar': productos_por_llegar,
+    'upcoming_products': upcoming_products,
     'historialDeVentas': historialDeVenta,
     'historialDeCompras': historialDeCompra,
     'shopProviders': shopProviders,
@@ -34,7 +34,7 @@ def shop_historial_ventas(request, id):
   if request.method == 'GET':
     historiales = HistorialDeVenta.objects.filter(shop_id=id).order_by('-sale_date')
     shop = Shop.objects.get(id=id)
-    productos_disponibles = shop.productos_en_stock()
+    productos_disponibles = shop.products_in_stock()
 
     return render(request, 'historial_de_ventas.html', {
       'historiales': historiales,

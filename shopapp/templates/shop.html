@@ -19,7 +19,7 @@
       <div class="Productos" id="Productos-Stock">
         <details class="Details">
           <summary class="Productos-Titulo">Productos en la tienda</summary>
-          {% if shopProducts|length == 0 %}
+          {% if products_in_stock|length == 0 %}
             <div>No Productos para mostrar</div>
           {% else %}
             <div class="Contenedor-Tabla">
@@ -33,7 +33,7 @@
                   <th>Fecha de llegada</th>
                 </tr>
         
-                {% for shopProduct in shopProducts %}
+                {% for shopProduct in products_in_stock %}
                   <tr>
                     <td>{{shopProduct.product_provider}}</td>
                     <td>{{shopProduct.amount}}</td>
@@ -85,7 +85,7 @@
       <div class="Productos" id="Productos-por-llegar">
         <details class="Details">
           <summary class="Productos-Titulo">Productos en camino</summary>
-          {% if productos_por_llegar|length == 0 %}
+          {% if upcoming_products|length == 0 %}
           <div>No Productos para mostrar</div>
           {% else %}
             <div class="Contenedor-Tabla">
@@ -99,7 +99,7 @@
                   <th>Fecha de llegada</th>
                 </tr>
         
-                {% for producto_por_llegar in productos_por_llegar %}
+                {% for producto_por_llegar in upcoming_products %}
                   <tr>
                       <td>{{producto_por_llegar.product_provider}}</td>
                       <td>{{producto_por_llegar.amount}}</td>

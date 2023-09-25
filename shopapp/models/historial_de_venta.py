@@ -6,6 +6,7 @@ from django.dispatch import receiver
 from django.db.models.signals import pre_save
 from django.core.exceptions import ValidationError
 from datetime import datetime
+from shopapp.errors import CommonError
 
 class HistorialDeVenta(models.Model):
   shop = models.ForeignKey(Shop, on_delete=models.CASCADE)
@@ -35,18 +36,14 @@ def delete_ShopProduct(sender, instance, **kwargs):
     instance.full_clean()
     available_amount = shop_product.amount - instance.amount
     
-    if available_amount > 0:
-      shop_product.amount = shop_product.amount - instance.amount
-      shop_product.save()
-    elif available_amount == 0:
-      shop_product.amount = shop_product.amount - instance.amount
-      shop_product.out_stock = True
-      shop_product.save()
+    if available_amount < 0:
+      raise CommonError('Se intento vender mas de lo que hay')
     else:
-      raise ValidationError('Se intento vender mas de lo que hay')
+      shop_product.amount = shop_product.amount - instance.amount
+      shop_product.out_stock = True if available_amount == 0 else False
+      shop_product.save()
 
   except ValidationError as e:
     raise e
-  # except:
-  #   print('AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA')
-  #   print('Algo salio mal al crear un historia de venta')
+  except CommonError as e:
+    raise e
