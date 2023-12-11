@@ -119,7 +119,7 @@
       <div class="Historial" id="Productos-historial-ventas">
         <details class="Details">
           <summary class="Productos-Titulo">Historial de Ventas</summary>
-          {% if historialDeVentas|length == 0 %}
+          {% if sales_histories|length == 0 %}
             <div>Aun no hay ventas :c</div>
           {% else %}
             <div class="Contenedor-Tabla">
@@ -132,13 +132,13 @@
                   <th>Sale Date</th>
                 </tr>
                 
-                {% for historialDeVenta in historialDeVentas %}
+                {% for sales_history in sales_histories %}
                   <tr>
-                    <td>{{historialDeVenta.product_provider}}</td>
-                    <td>{{historialDeVenta.amount}}</td>
-                    <td>{{historialDeVenta.unit_price}}</td>
-                    <td>{{historialDeVenta.total_price}}</td>
-                    <td>{{historialDeVenta.sale_date}}</td>
+                    <td>{{sales_history.product_provider}}</td>
+                    <td>{{sales_history.amount}}</td>
+                    <td>{{sales_history.unit_price}}</td>
+                    <td>{{sales_history.total_price}}</td>
+                    <td>{{sales_history.sale_date}}</td>
                   </tr>
                   {% endfor %}
                 </table>
@@ -154,7 +154,7 @@
       <div class="Historial" id="Productos-historial-compras">
         <details class="Details">
           <summary class="Productos-Titulo">Historial de Compras</summary>
-          {% if historialDeCompras|length == 0 %}
+          {% if purchase_histories|length == 0 %}
             <div>Aun no hay compras :c</div>
           {% else %}
             <div class="Contenedor-Tabla">
@@ -170,16 +170,16 @@
                   <th>Package</th>
                 </tr>
                 
-                {% for historialDeCompra in historialDeCompras %}
+                {% for purchase_history in purchase_histories %}
                 <tr>
-                  <td>{{historialDeCompra.product_provider}}</td>
-                  <td>{{historialDeCompra.amount}}</td>
-                  <td>{{historialDeCompra.unit_price}}</td>
-                  <td>{{historialDeCompra.total_cost}}</td>
-                  <td>{{historialDeCompra.purchase_date}}</td>
-                  <td>{{historialDeCompra.product_provider.provider}}</td>
-                  <td>{{historialDeCompra.num_units_from_pack}}</td>
-                  <td>{{historialDeCompra.package}}</td>
+                  <td>{{purchase_history.product_provider}}</td>
+                  <td>{{purchase_history.amount}}</td>
+                  <td>{{purchase_history.unit_price}}</td>
+                  <td>{{purchase_history.total_cost}}</td>
+                  <td>{{purchase_history.purchase_date}}</td>
+                  <td>{{purchase_history.product_provider.provider}}</td>
+                  <td>{{purchase_history.num_units_from_pack}}</td>
+                  <td>{{purchase_history.package}}</td>
                 </tr>
                 {% endfor %}
               </table>

@@ -19,12 +19,12 @@ class Migration(migrations.Migration):
             ],
         ),
         migrations.AddField(
-            model_name='historialdecompra',
+            model_name='PurchaseHistory',
             name='num_units',
             field=models.IntegerField(default=0),
         ),
         migrations.AddField(
-            model_name='historialdecompra',
+            model_name='PurchaseHistory',
             name='package',
             field=models.BooleanField(default=False),
         ),

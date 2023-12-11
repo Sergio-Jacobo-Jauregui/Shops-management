@@ -9,7 +9,7 @@ from django.core.exceptions import ValidationError
 from decimal import Decimal
 from django.forms.models import model_to_dict
 
-class HistorialDeCompra(models.Model):
+class PurchaseHistory(models.Model):
   shop = models.ForeignKey(Shop, on_delete=models.CASCADE)
   product_provider = models.ForeignKey(ProductProvider, on_delete=models.CASCADE)
   amount = models.IntegerField()
@@ -19,13 +19,13 @@ class HistorialDeCompra(models.Model):
   package = models.BooleanField(default=False)
   purchase_date = models.DateTimeField(auto_now_add=True)
 
-@receiver(pre_save, sender=HistorialDeCompra)
+@receiver(pre_save, sender=PurchaseHistory)
 def set_total_cost(sender, instance, **kwargs):
   if not instance.total_cost:
     amount_decimal = Decimal(str(instance.amount))
     instance.total_cost = amount_decimal * instance.unit_price
  
-@receiver(pre_save, sender=HistorialDeCompra)
+@receiver(pre_save, sender=PurchaseHistory)
 def create_ShopProduct(sender, instance, **kwargs):
   today = datetime.now()
   if instance.package == True:
@@ -54,4 +54,4 @@ def create_ShopProduct(sender, instance, **kwargs):
     print('Errors Errors Errors Errors Errors Errors Errors Errors Errors!!!!!!!!!!!!')
     for field, error_list in errors.items():
         print(f"Campo '{field}': {', '.join(error_list)}")
-    raise ValidationError('No se pudo guardar historialDeCompraaaa') from e 
+    raise ValidationError('No se pudo guardar PurchaseHistoryaaa') from e 

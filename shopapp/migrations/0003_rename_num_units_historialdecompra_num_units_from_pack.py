@@ -6,12 +6,12 @@ from django.db import migrations
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('shopapp', '0002_producttag_historialdecompra_num_units_and_more'),
+        ('shopapp', '0002_producttag_purchasehistory_num_units_and_more'),
     ]
 
     operations = [
         migrations.RenameField(
-            model_name='historialdecompra',
+            model_name='PurchaseHistory',
             old_name='num_units',
             new_name='num_units_from_pack',
         ),

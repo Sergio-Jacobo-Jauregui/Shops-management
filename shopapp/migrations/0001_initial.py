@@ -71,7 +71,7 @@ class Migration(migrations.Migration):
             field=models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='shopapp.provider'),
         ),
         migrations.CreateModel(
-            name='HistorialDeVenta',
+            name='SalesHistory',
             fields=[
                 ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
                 ('amount', models.IntegerField()),
@@ -83,7 +83,7 @@ class Migration(migrations.Migration):
             ],
         ),
         migrations.CreateModel(
-            name='HistorialDeCompra',
+            name='PurchaseHistory',
             fields=[
                 ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
                 ('amount', models.IntegerField()),

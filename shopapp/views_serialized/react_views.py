@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
-from shopapp.models import ShopProvider, Shop, HistorialDeVenta, HistorialDeCompra, Provider, ProductProvider, Product
-from shopapp.forms import HistorialDeVentaForm
+from shopapp.models import ShopProvider, Shop, SalesHistory, PurchaseHistory, Provider, ProductProvider, Product
+from shopapp.forms import SalesHistoryForm
 from decimal import Decimal
 from django.http import JsonResponse, HttpResponse
 from django.forms.models import model_to_dict
@@ -17,8 +17,8 @@ def shop(request, id):
   shopProducts = list(shop.products_in_stock_react())
   products_out_stock = list(shop.products_out_stock_react())
   productos_por_llegar = list(shop.upcoming_products_react())
-  historialDeVenta = list(HistorialDeVenta.objects.filter(shop_id=id).select_related('product_provider__product').values('id','product_provider__product__name', 'amount', 'unit_price', 'total_price', 'sale_date'))
-  historialDeCompra = list(HistorialDeCompra.objects.filter(shop_id=id).select_related('product_provider__product').values('id','product_provider__product__name', 'amount', 'unit_price', 'total_cost', 'purchase_date', 'product_provider', 'num_units_from_pack', 'package'))
+  SalesHistory = list(SalesHistory.objects.filter(shop_id=id).select_related('product_provider__product').values('id','product_provider__product__name', 'amount', 'unit_price', 'total_price', 'sale_date'))
+  PurchaseHistory = list(PurchaseHistory.objects.filter(shop_id=id).select_related('product_provider__product').values('id','product_provider__product__name', 'amount', 'unit_price', 'total_cost', 'purchase_date', 'product_provider', 'num_units_from_pack', 'package'))
   shopProviders = list(Provider.objects.filter(shopprovider__shop_id=1).values('id', 'name'))
   
   data = {
@@ -26,8 +26,8 @@ def shop(request, id):
     'shopProducts': shopProducts,
     'products_out_stock': products_out_stock,
     'productos_por_llegar': productos_por_llegar,
-    'historialDeVenta': historialDeVenta,
-    'historialDeCompra': historialDeCompra,
+    'SalesHistory': SalesHistory,
+    'PurchaseHistory': PurchaseHistory,
     'shopProviders': shopProviders,
   }
   return JsonResponse(data, safe=False)
@@ -35,18 +35,18 @@ def shop(request, id):
 @csrf_exempt
 def shop_historial_ventas(request, id):
   if request.method == 'GET':
-    historiales = HistorialDeVenta.objects.filter(shop_id=id).order_by('-sale_date')
+    historiales = SalesHistory.objects.filter(shop_id=id).order_by('-sale_date')
     shop = Shop.objects.get(id=id)
     productos_disponibles = shop.products_in_stock()
 
     return render(request, 'historial_de_ventas.html', {
       'historiales': historiales,
-      'form': HistorialDeVentaForm,
+      'form': SalesHistoryForm,
       'shop_id': id,
       'productos_disponibles': productos_disponibles
     })   
   elif request.method == 'POST':  
-    HistorialDeVenta.objects.create(
+    SalesHistory.objects.create(
       product_provider_id=request.POST['product_provider'],
       amount=int(request.POST['amount']),
       unit_price=Decimal(request.POST['unit_price']),
@@ -57,7 +57,7 @@ def shop_historial_ventas(request, id):
 @csrf_exempt
 def shop_historial_compras(request, id):
   if request.method == 'GET':
-    historiales = HistorialDeCompra.objects.filter(shop_id=id).select_related('product_provider__product').values('id','product_provider__product__name', 'amount', 'unit_price', 'total_cost', 'purchase_date', 'product_provider', 'num_units_from_pack', 'package').order_by('-purchase_date')
+    historiales = PurchaseHistory.objects.filter(shop_id=id).select_related('product_provider__product').values('id','product_provider__product__name', 'amount', 'unit_price', 'total_cost', 'purchase_date', 'product_provider', 'num_units_from_pack', 'package').order_by('-purchase_date')
     providers = ShopProvider.objects.filter(shop_id=id).values_list('provider_id', flat=True)
     productos = Product.objects.filter(productprovider__provider_id__in=providers).select_related('product').values('productprovider__id', 'name')
 
@@ -72,7 +72,7 @@ def shop_historial_compras(request, id):
     print(11111111111111111111111111111111111111111111111111111)
     # packacke = True if request.POST['unit_price_pack'] == "on" else False
     # num_units_from_pack = int(request.POST['unit_price_pack']) if request.POST['unit_price_pack'] else 0
-    # new = HistorialDeCompra(
+    # new = PurchaseHistory(
     #   shop_id=id,
     #   product_provider_id=int(request.POST['product_provider']),
     #   amount=int(request.POST['amount']),

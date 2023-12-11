@@ -1,10 +1,10 @@
 from django.contrib import admin
-from .models import  Shop, Provider, ShopProvider, ProductProvider, Product, ShopProduct, HistorialDeCompra, HistorialDeVenta
+from .models import  Shop, Provider, ShopProvider, ProductProvider, Product, ShopProduct, PurchaseHistory, SalesHistory
 
-class HistorialDeCompraAdmin(admin.ModelAdmin):
+class PurchaseHistoryAdmin(admin.ModelAdmin):
   readonly_fields = ('total_cost',)
 
-class HistorialDeVentaAdmin(admin.ModelAdmin):
+class SalesHistoryAdmin(admin.ModelAdmin):
   readonly_fields = ('total_price',)
 
 # class ShopProductAdmin(admin.ModelAdmin):
@@ -17,5 +17,5 @@ admin.site.register(ShopProvider)
 admin.site.register(Product)
 admin.site.register(ShopProduct)
 admin.site.register(ProductProvider)
-admin.site.register(HistorialDeCompra, HistorialDeCompraAdmin)
-admin.site.register(HistorialDeVenta, HistorialDeVentaAdmin)
+admin.site.register(PurchaseHistory, PurchaseHistoryAdmin)
+admin.site.register(SalesHistory, SalesHistoryAdmin)

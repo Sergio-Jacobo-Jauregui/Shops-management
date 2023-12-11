@@ -8,7 +8,7 @@ from django.core.exceptions import ValidationError
 from datetime import datetime
 from shopapp.errors import CommonError
 
-class HistorialDeVenta(models.Model):
+class SalesHistory(models.Model):
   shop = models.ForeignKey(Shop, on_delete=models.CASCADE)
   product_provider = models.ForeignKey(ProductProvider, on_delete=models.CASCADE)
   amount = models.IntegerField() 
@@ -19,13 +19,13 @@ class HistorialDeVenta(models.Model):
   def today(self):
     return datetime.now()
 
-@receiver(pre_save, sender=HistorialDeVenta)
+@receiver(pre_save, sender=SalesHistory)
 def set_total_price(sender, instance, **kwargs):
   if not instance.total_price:
     print(instance.amount * instance.unit_price)
     instance.total_price = instance.amount * instance.unit_price
  
-@receiver(pre_save, sender=HistorialDeVenta)
+@receiver(pre_save, sender=SalesHistory)
 def delete_ShopProduct(sender, instance, **kwargs):
   shop_product = ShopProduct.objects.filter(
     shop=instance.shop,
@@ -37,7 +37,7 @@ def delete_ShopProduct(sender, instance, **kwargs):
     available_amount = shop_product.amount - instance.amount
     
     if available_amount < 0:
-      raise CommonError('Se intento vender mas de lo que hay')
+      raise CommonError('They tried to sell more than there is')
     else:
       shop_product.amount = shop_product.amount - instance.amount
       shop_product.out_stock = True if available_amount == 0 else False

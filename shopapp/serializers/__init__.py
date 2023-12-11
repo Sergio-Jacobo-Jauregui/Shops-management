@@ -1,5 +1,5 @@
-from .historial_de_compra_serializer import HistorialDeCompraSerializer
-from .historial_de_venta_serializer import HistorialDeVentaSerializer
+from .purchase_history_serializer import PurchaseHistorySerializer
+from .sales_history_serializer import SalesHistorySerializer
 from .product_serializer import ProductSerializer
 from .provider_serializer import ProviderSerializer
 from .shop_product_serializer import ShopProductSerializer
