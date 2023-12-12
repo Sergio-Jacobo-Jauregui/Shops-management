@@ -1,15 +1,22 @@
 from django.shortcuts import render, redirect
+from django.contrib.auth.decorators import login_required
 from shopapp.models import ShopProvider, Shop, SalesHistory, PurchaseHistory, Provider, ProductProvider
 from shopapp.forms import PurchaseHistoryForm, SalesHistoryForm
 from decimal import Decimal
 
 def index(request):
+  return render(request, 'index.html')
+
+@login_required
+def home(request):
+  # todo: only one
   shops = Shop.objects.all()
 
-  return render(request, 'index.html', {
+  return render(request, 'home.html', {
     'shops': shops,
   })
 
+@login_required
 def shop(request, id):
   shop = Shop.objects.get(id=id)
   products_in_stock = shop.products_in_stock()
@@ -29,6 +36,7 @@ def shop(request, id):
     'shopProviders': shopProviders,
   })
 
+@login_required
 def shop_historial_ventas(request, id):
   if request.method == 'GET':
     historiales = SalesHistory.objects.filter(shop_id=id).order_by('-sale_date')
@@ -50,6 +58,7 @@ def shop_historial_ventas(request, id):
     )
     return redirect('shop_historial_ventas', id=id)
 
+@login_required
 def shop_historial_compras(request, id):
   if request.method == 'GET':
     historiales = PurchaseHistory.objects.filter(shop_id=id).order_by('-purchase_date')
@@ -74,6 +83,7 @@ def shop_historial_compras(request, id):
     )
     return redirect('shop_historial_compras', id=id)
 
+@login_required
 def providers(request):
   providers = Provider.objects.all()
 

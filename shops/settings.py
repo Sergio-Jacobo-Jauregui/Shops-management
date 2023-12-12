@@ -80,6 +80,15 @@ MIDDLEWARE = [
     'corsheaders.middleware.CorsMiddleware',
 ]
 
+SESSION_ENGINE = 'django.contrib.sessions.backends.db'
+
+PASSWORD_HASHERS = [
+    "django.contrib.auth.hashers.PBKDF2PasswordHasher"
+]
+
+LOGIN_URL = 'login'
+LOGIN_REDIRECT_URL = 'home'
+
 CORS_ALLOWED_ORIGINS = [
     "http://localhost:3000",
 ]

@@ -1,22 +1,8 @@
 {% extends 'base.html' %}
 
 {% block content %}
-  <h1 class="Titulo-Index flex">Tiendas Disponibles:</h1>
+  <h1 class="Titulo-Index flex">Bienvenido:</h1>
   <div class="Tiendas flex">
-    {% for shop in shops %}
-      <div class="Card flex">
-        <div class="Encabezado-Card flex">
-          <p>{{shop}}</p>
-          <a href="{% url 'shop' shop.id %}">Ir</a></div>
-        <div class="Datos-Tienda flex">
-          <ul>
-            <li>Email: {{shop.email}}</li>
-            <li>Addres: {{shop.addres}}</li>
-            <li>Dinero: {{shop.money}}</li>
-          </ul>
-        </div>
-      </div class="Card">
-    {% endfor %}
   </div class="Tiendas">
 {% endblock content %}
   

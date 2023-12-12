@@ -2,6 +2,8 @@ from django.urls import path, include
 from .models import *
 from . import views_html_json_viewsets as view_not_serialized
 from . import views_serialized
+from . import views_authentication as views_auth
+from django.contrib.auth import views as auth_views
 from django.views.decorators.csrf import get_token
 from django.http import JsonResponse
 
@@ -18,19 +20,26 @@ urlpatterns = [
   path('token/', get_csrf, name='token'),
   # HTML VIEWS
   path('', view_not_serialized.index, name='index'),
+  path('signup/', views_auth.register, name='signup'),
+  path('login/', auth_views.LoginView.as_view(), name='login'),
+  path('logout/', auth_views.LogoutView.as_view(), name='logout'),
+  path('home', view_not_serialized.home, name='home'),
   path('shop/<int:id>/', view_not_serialized.shop, name='shop'),
   path('shop/<int:id>/historial_de_ventas/', view_not_serialized.shop_historial_ventas, name='shop_historial_ventas'),
   path('shop/<int:id>/historial_de_compras/', view_not_serialized.shop_historial_compras, name='shop_historial_compras'),
   path('providers/', view_not_serialized.providers, name='providers'),
+
   # REACT RESPONSES
   path('react/home/', views_serialized.index, name='react_index'),
   path('react/shop/<int:id>/', views_serialized.shop, name='react_shop'),
   path('react/shop/<int:id>/historial_de_ventas/', views_serialized.shop_historial_ventas, name='react_shop_historial_ventas'),
   path('react/shop/<int:id>/historial_de_compras/', views_serialized.shop_historial_compras, name='react_shop_historial_compras'),
   path('react/providers', views_serialized.providers, name='react_providers'),
+
   # DRF VIEWSETS
   path('DRF/', include(router.urls)),
   path('api-auth/', include('rest_framework.urls', namespace='rest_framework')),
+
   # DRF SERIALIZED
   path('products_serial/', views_serialized.products_serialized, name='products_serial'),
   path('products_serial/<int:id>/', views_serialized.get_product_serialized, name='get_products_serial'),
@@ -49,6 +58,7 @@ urlpatterns = [
   
   path('historial_compra_serial/', views_serialized.historial_de_compras_serialized, name='historial_de_compras_serialized'),
   path('historial_compra_serial/<int:id>/', views_serialized.get_historial_de_compra_serialized, name='get_historial_de_compra_serialized'),
+
   # JSON RESPONSES
   path('json_alone/', view_not_serialized.json_alone, name='json_alone'),
   path('ok/', view_not_serialized.ok, name='ok'),

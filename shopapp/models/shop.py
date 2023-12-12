@@ -1,11 +1,12 @@
 from django.db import models
 from datetime import datetime
+from django.contrib.auth.models import User
 
 class Shop(models.Model):
   name = models.CharField(max_length=50)
-  email = models.CharField(unique=True, max_length=50)
   addres = models.CharField(max_length=50, blank=True, null=True)
   money = models.IntegerField(default=1000)
+  administrator = models.ForeignKey(User, on_delete=models.CASCADE, default=None) 
   
   def today(self):
     return datetime.now()
