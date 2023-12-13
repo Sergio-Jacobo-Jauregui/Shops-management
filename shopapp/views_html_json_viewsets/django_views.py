@@ -5,7 +5,9 @@ from shopapp.forms import PurchaseHistoryForm, SalesHistoryForm
 from decimal import Decimal
 
 def index(request):
-  return render(request, 'index.html')
+  return render(request, 'index.html', {
+    'authenticated': request.user.is_authenticated
+  })
 
 @login_required
 def home(request):

@@ -88,6 +88,7 @@ PASSWORD_HASHERS = [
 
 LOGIN_URL = 'login'
 LOGIN_REDIRECT_URL = 'home'
+LOGOUT_REDIRECT_URL = 'index'
 
 CORS_ALLOWED_ORIGINS = [
     "http://localhost:3000",
@@ -113,6 +114,7 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                'shopapp.context.navbar_variables'
             ],
         },
     },

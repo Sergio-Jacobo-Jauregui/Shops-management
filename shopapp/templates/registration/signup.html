@@ -1,15 +1,17 @@
 {% extends 'base.html' %}
-<!-- todo: use little design  -->
+
 {% block content %}
-  <h2>Register</h2>
-  
-  {% if error %}
-  <p>-------Hubo un error, intente denuevo-------</p>
-  {% endif %}
+  <div class="absolute-center flex flex-col items-center">
+    <h2 class="text-3xl p-5">Register</h2>
     
-  <form method="post" action="{% url 'signup' %}">
-    {% csrf_token %}
-    {{ form.as_p }}
-    <button type="submit">Register</button>
-  </form>
+    {% if error %}
+    <p>-------Hubo un error, intente de nuevo-------</p>
+    {% endif %}
+      
+    <form method="post" action="{% url 'signup' %}">
+      {% csrf_token %}
+      {{ form.as_p }}
+      <button type="submit">Register</button>
+    </form>
+  </div>
 {% endblock %}

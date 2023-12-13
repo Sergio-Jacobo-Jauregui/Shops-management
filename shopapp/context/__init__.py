@@ -1,0 +1,1 @@
+from .context_processors import navbar_variables

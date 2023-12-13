@@ -5,14 +5,33 @@
   <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" type="text/css" href="{% static 'styles_shop.css' %}">
+    <!-- <link rel="stylesheet" type="text/css" href="{% static 'styles_shop.css' %}">
     <link rel="stylesheet" type="text/css" href="{% static 'styles_index.css' %}">
     <link rel="stylesheet" type="text/css" href="{% static 'nav_bar.css' %}">
-    <link rel="stylesheet" type="text/css" href="{% static 'index.css' %}">
-    <link rel="stylesheet" type="text/css" href="{% static 'historiales.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'historiales.css' %}"> -->
+    <link rel="stylesheet" type="text/css" href="{% static 'tailwind_style.css' %}">
     <title>Shops</title>
   </head>
   <body>
+    <nav>
+      <ul class="flex justify-between p-2.5 bg-gray-300">
+        <div class="flex">
+          <li class="px-2.5"><a href="{% url 'index' %}">Index</a></li>
+          <li class="px-2.5"><a href="{% url 'home' %}">Home</a></li>
+        </div>
+        
+        {% if authenticated %}
+          <div class="flex">
+            <li class="px-2.5"><a href="{% url 'logout' %}">Log Out</a></li>
+          </div>
+        {% else %}
+          <div class="flex">
+            <li class="px-2.5"><a href="{% url 'signup' %}">Sign Up</a></li>
+            <li class="px-2.5"><a href="{% url 'login' %}">Log In</a></li>
+          </div>
+        {% endif %}
+      </ul>
+    </nav>
     {% block content %}
     {% endblock content %}        
   </body>

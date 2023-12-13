@@ -1,21 +1,21 @@
 {% extends 'base.html' %}
 
 {% block content %}
-  <div class="center">
-    <div class="box">
-      <div class="titulo">
-        <h1 class="">Management Shop</h1>
+  <div class="flex justify-center items-center w-screen h-screen">
+    <div class="h-auto w-auto">
+      <div class="flex justify-center w-500">
+        <h1 class="my-2.5 mx-0 text-3xl">Management Shop</h1>
       </div>
-      <div class="botones">
-        <div>
-          <button>
+      <div class="flex h-auto w-auto p-2.5 justify-center">
+        <div class="py-2.5 px-5">
+          <button class="py-2.5 px-5 bg-gray-300 rounded-lg">
             <a href="{% url 'signup' %}" class="enlace-boton">
               Sign Up
             </a>
           </button>
         </div>
-        <div>
-          <button>
+        <div class="py-2.5 px-5">
+          <button class="py-2.5 px-5 bg-gray-300 rounded-lg">
             <a href="{% url 'login' %}" class="enlace-boton">
               Log In
             </a>
