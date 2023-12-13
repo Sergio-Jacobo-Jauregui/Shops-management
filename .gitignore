@@ -7,3 +7,6 @@ __pycache__/
 
 manifiest-service.yml
 manifiest.yml
+
+# tailwnd dependences
+/node_modules

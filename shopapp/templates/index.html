@@ -1,9 +1,29 @@
 {% extends 'base.html' %}
 
 {% block content %}
-  <h1 class="Titulo-Index flex">Bienvenido:</h1>
-  <div class="Tiendas flex">
-  </div class="Tiendas">
+  <div class="center">
+    <div class="box">
+      <div class="titulo">
+        <h1 class="">Management Shop</h1>
+      </div>
+      <div class="botones">
+        <div>
+          <button>
+            <a href="{% url 'signup' %}" class="enlace-boton">
+              Sign Up
+            </a>
+          </button>
+        </div>
+        <div>
+          <button>
+            <a href="{% url 'login' %}" class="enlace-boton">
+              Log In
+            </a>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
 {% endblock content %}
   
   

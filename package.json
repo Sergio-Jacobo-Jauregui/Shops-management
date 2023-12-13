@@ -1,0 +1,8 @@
+{
+  "scripts": {
+    "build": "npx tailwindcss -i ./shopapp/static/principal_style.css -o ./shopapp/static/tailwind_style.css --watch"
+  },
+  "devDependencies": {
+    "tailwindcss": "^3.3.6"
+  }
+}
